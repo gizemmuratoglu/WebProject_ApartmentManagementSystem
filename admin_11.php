@@ -6,18 +6,33 @@ include 'baglan.php';
 <html>
 <head>
 	<title>HostDetail/ERENHOUSES</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<style >
 		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap');
 		body{
-			margin-left: 50px;
+			
 			/*background-color: #bababa !important;*/
 			background-size: 100% 758px;
 			background-image: url('img4.jpg'); 
 		}
+		*{
+
+			margin: 0;
+			padding:0;
+			box-sizing: border-box;
+			font-family:'Poppins', sans-serif;
+		}
 		.container{
 			/*float: right;
-			*/padding-right: 15px;
-			width: 92%;
+
+			*/
+			
+			padding-left: 140px !important;
+			text-align: center !important;
+			margin-left: 150px !important;
+
+			padding-right: 0px !important;
+			width: 84% !important;
 			/*background-color: white !important;*/
 		}
 		.wlc{
@@ -28,34 +43,120 @@ include 'baglan.php';
 			background-color: #292626;
 			font-family:'Poppins', sans-serif;
 		}
+		.navigation{
+			position: fixed;
+			width: 250px;
+			height: 100%;
+			background-color: #292626;
+			transition: 0.5s;
+			overflow: hidden;
+			float: left;
+
+		}
+			.navigation ul{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+
+			}
+			.navigation ul li{
+				position: relative;
+				width: 100%;
+				list-style: none;
+
+			}
+			.navigation ul li a{
+				position: relative;
+				display: block;
+				width: 100%;
+				display: flex;
+				text-decoration: none;
+				color: white;
+			}
+
+			.navigation ul li a .icon .fa{
+				font-size: 24px;
+			}
+			.navigation ul li a .title{
+				padding-left: 0 !important;
+				font-size: 15.5px;
+				color: white;
+				text-decoration-line: underline;
+				position: relative;
+				display: block;
+				padding: 0 20px;
+				line-height: 60px;
+				text-align: start;
+				white-space: nowrap;
+			}
+			.navigation ul li a .title:hover{
+				color: brown;
+				font-size: 16px;
+
+			}
+			.navigation ul li a .baslık{
+				font-size: 24px;
+				color: white;
+				text-decoration-line: underline;
+				position: relative;
+				display: block;
+				padding: 0 20px;
+				line-height: 60px;
+				text-align: start;
+				white-space: nowrap;
+			}
+
 	</style>
 	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
 	<div class="wlc" style="text-align: center; font-size: 25px; color: white; "> <b>HOST DETAILS</b>   </div>
+	<div class="con">
+			<div class="navigation">
+				<ul>
+					<li>
+						<a >
 
-	
-	<!-- <nav class="navbar navbar-dark bg-dark navbar-expand-lg text-white"> 
-		<div class="container py-2"> <a href="admin_1.php"  class="navbar-brand"> ADMIN PANEL </a>
+							<span class="baslık" style="text-decoration-line: none;"><b>DASHBOARD</b> </span>
+						</a>
+					</li>
+					<<li>
+						<a href="admin_11.php" >
 
-			<div class="collapse navbar-collapse" id="navbar-houses">
-				<ul class="navbar-nav ">
-					<li class="nav-item px-4">
-						<a href="admin_11.php" class="nav-link text-white">HOST DETAILS</a>
+							<span class="title" > HOST DETAILS&EDIT</span>
+						</a>
 					</li>
-					<li class="nav-item px-4">
-						<a href="newPage.php" class="nav-link text-white">ADD NEW HOST</a>
+					<li>
+						<a href="newPage.php">
+							<span class="title">ADD NEW HOST</span>
+						</a>
 					</li>
-					<li class="nav-item px-4">
-						<a href="reportPage.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">REPORT PROBLEM&REQUEST</a>
+					<li>
+						<a href="currentdue.php">
+							<span class="title">EDİT DUE&DETAILS</span>
+						</a>
 					</li>
-					
-
+					<li>
+						<a href="report.php">
+							<span class="title">CHECK PROBLEM&REQUEST</span>
+						</a>
+					</li>
+					<li>
+						<a href="see.php">
+							<span class="title">EDIT INCOME-EXPENSE TABLE</span>
+						</a>
+					</li>
+					<li>
+						<a href="admin.php">
+							<span class="title">LOG OUT</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
-	</nav> -->
+
 
 	<br><br><br><br><br>
 	<div class="container">
