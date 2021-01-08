@@ -1,12 +1,13 @@
 <?php
 include 'baglan.php';
-
+date_default_timezone_set('UTC');
 
 
 if (isset($_POST['insertislemi'])) {
 
 	$password=md5($_POST['password']);
-
+	$year=date('Y');
+	$month=date('m');
 	$kaydet=$db->prepare("INSERT into bilgiler set
 		name=:name,             
 		surname=:surname,
@@ -31,21 +32,25 @@ if (isset($_POST['insertislemi'])) {
 	));
 	if ($insert) {
 		# code...
-	
-
-	$id = $db->lastInsertId();
 
 
-	$kayıt=$db->prepare("INSERT into aidat set             
-		id=:id
-
-		");
-
-	$ins=$kayıt->execute(array(
-		'id'=>$id,
+		$hostid = $db->lastInsertId();
 
 
-	));
+		$kayıt=$db->prepare("INSERT into aidat set             
+			hostid=:hostid,
+			year=:year,
+			month=:month
+
+			");
+
+		$ins=$kayıt->execute(array(
+			'hostid'=>$hostid,
+			'year'=>$year,
+			'month'=>$month,
+
+
+		));
 
 	}
 
@@ -99,7 +104,7 @@ if (isset($_POST['updateislemi'])) {
 		'move_out'=>$_POST['move_out'],
 		
 	));
-	 
+
 	
 	if (!empty($move_out)|| $move_out!=NULL) {
 		$kayit=$db->prepare("INSERT into tasinanlar set             
@@ -126,14 +131,14 @@ if (isset($_POST['updateislemi'])) {
 		));
 
 		$silme=$db->prepare("DELETE from bilgiler where id=:id");
-        $kont=$silme->execute(array(
-        	'id'=>$id
-        ));
-       
+		$kont=$silme->execute(array(
+			'id'=>$id
+		));
+
 
 		
 	}
-	 if ($insert) {
+	if ($insert) {
 
 		header("Location:edit.php?durum=ok&id=$id");
 		exit();
@@ -159,43 +164,53 @@ if (isset($_POST['updateislemi'])) {
 }
 if (isset($_POST['paydue'])) {
 
-	$id=$_POST['id'];
+	$hostid=$_POST['hostid'];
+	$due=$_POST['due'];
+	$paid="PAID";
+	$notpaid="NOTPAID";
+	$datetim=date('Y-m-d');
 
-	$kaydet=$db->prepare("UPDATE aidat set
-		ocak=:ocak,             
-		subat=:subat,
-		mart=:mart,
-		nisan=:nisan,
-		mayis=:mayis,
-		haziran=:haziran,
-		temmuz=:temmuz,
-		agustos=:agustos,
-		eylul=:eylul,
-		ekim=:ekim,
-		kasim=:kasim,
-		aralik=:aralik
-		where id={$_POST['id']}
+	if (!empty($due) || $due!=NULL) {
 
-		");
+		$kayit=$db->prepare("INSERT into aidat set             
+			period=:period,             
+			due=:due,
+			isPaid=:isPaid,
+			hostid=:hostid,
+			datetim=:datetim
+			");
 
+		$ins=$kayit->execute(array(
+			'period'=>$_POST['period'],
+			'due'=>$_POST['due'],
+			'datetim'=>$datetim,
+			'hostid'=>$hostid,
+			'isPaid'=>$paid,
 
-	$insert=$kaydet->execute(array(
-		'ocak'=>$_POST['ocak'],
-		'subat'=>$_POST['subat'],
-		'mart'=>$_POST['mart'],
-		'nisan'=>$_POST['nisan'],
-		'mayis'=>$_POST['mayis'],
-		'haziran'=>$_POST['haziran'],
-		'temmuz'=>$_POST['temmuz'],
-		'agustos'=>$_POST['agustos'],
-		'eylul'=>$_POST['eylul'],
-		'ekim'=>$_POST['ekim'],
-		'kasim'=>$_POST['kasim'],
-		'aralik'=>$_POST['aralik'],
-		
-	));
+		));
+	}
+	else{
+		$kayit=$db->prepare("INSERT into aidat set             
+			period=:period,             
+			due=:due,
+			isPaid=:isPaid,
+			hostid=:hostid,
+			datetim=:datetim
+			
+			");
 
-	if ($insert) {
+		$ins=$kayit->execute(array(
+			'period'=>$_POST['period'],
+			'due'=>$_POST['due'],
+			'hostid'=>$hostid,
+			'isPaid'=>$notpaid,
+			'datetim'=>$datetim,
+
+		));
+
+	}
+
+	if ($ins) {
 
 		header("Location:editdue.php?durum=ok&id=$id");
 		exit();
@@ -209,10 +224,8 @@ if (isset($_POST['paydue'])) {
 		
 	}
 
-
-
-
 }
+
 if (isset($_POST['updatebudget'])) {
 
 	$kaydet=$db->prepare("INSERT into gelirgider set
@@ -234,7 +247,7 @@ if (isset($_POST['updatebudget'])) {
 		
 	));
 
-	// $id = $db->lastInsertId();
+	
 
 
 	if ($insert) {
@@ -255,6 +268,66 @@ if (isset($_POST['updatebudget'])) {
 
 
 
+}
+
+
+if ($_GET['start']=="ok") {
+	$period=date('Y-m');
+	$hostid=$_GET['hostid'];
+	$notpaid="NOTPAID";
+	$amount=$_POST['amount'];
+
+	
+	$nRows = $db->query("SELECT count(*) FROM aidat a  where a.hostid=$hostid AND a.period='$period'  ")->fetchColumn(); 
+	
+
+	if ($nRows!=0) {
+
+		header("Location:admin_11.php?durum=var");
+		exit();
+
+		
+                                        	
+	}
+	else{
+
+    $kaydet=$db->prepare("INSERT into aidat set
+		hostid=:hostid,             
+		period=:period,
+		isPaid=:isPaid,
+		amount=:amount
+		
+
+		");
+
+
+	$insert=$kaydet->execute(array(
+		'hostid'=>$hostid,
+		'period'=>$period,
+		'isPaid'=>$notpaid,
+		'amount'=>$amount,
+		
+
+
+	));
+}
+	if ($insert) {
+
+		header("Location:admin_11.php?sonuc=ok");
+		exit();
+
+	}
+	else{ 
+		header("Location:admin_11.php?sonuc=no");
+		exit();
+
+
+
+	}
+
+
+	
+	
 }
 
 
