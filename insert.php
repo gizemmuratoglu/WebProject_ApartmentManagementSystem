@@ -30,32 +30,10 @@ if (isset($_POST['insertislemi'])) {
 		'blockname'=>$_POST['blockname'],
 		
 	));
+	
+
+
 	if ($insert) {
-		# code...
-
-
-		$hostid = $db->lastInsertId();
-
-
-		$kayıt=$db->prepare("INSERT into aidat set             
-			hostid=:hostid,
-			year=:year,
-			month=:month
-
-			");
-
-		$ins=$kayıt->execute(array(
-			'hostid'=>$hostid,
-			'year'=>$year,
-			'month'=>$month,
-
-
-		));
-
-	}
-
-
-	if ($ins) {
 
 		header("Location:newPage.php?durum=OK");
 		exit();
@@ -79,7 +57,7 @@ if (isset($_POST['insertislemi'])) {
 if (isset($_POST['updateislemi'])) {
 	$move_out=$_POST['move_out'];
 
-	$id=$_POST['id'];
+	$hostid=$_POST['id'];
 
 	$kaydet=$db->prepare("UPDATE bilgiler set
 		name=:name,             
@@ -108,7 +86,8 @@ if (isset($_POST['updateislemi'])) {
 	
 	if (!empty($move_out)|| $move_out!=NULL) {
 		$kayit=$db->prepare("INSERT into tasinanlar set             
-			id=:id,
+			hostid=:hostid,
+
 			name=:name,             
 			surname=:surname,
 			housemate=:housemate,
@@ -125,14 +104,14 @@ if (isset($_POST['updateislemi'])) {
 			'telephone_num1'=>$_POST['telephone_num1'],
 			'telephone_num2'=>$_POST['telephone_num2'],
 			'blockname'=>$_POST['blockname'],
-			'id'=>$id,
+			'hostid'=>$hostid,
 			'move_out'=>$move_out,
 
 		));
 
 		$silme=$db->prepare("DELETE from bilgiler where id=:id");
 		$kont=$silme->execute(array(
-			'id'=>$id
+			'id'=>$hostid
 		));
 
 
@@ -140,7 +119,7 @@ if (isset($_POST['updateislemi'])) {
 	}
 	if ($insert) {
 
-		header("Location:edit.php?durum=ok&id=$id");
+		header("Location:edit.php?durum=ok&id=$hostid");
 		exit();
 		# code...
 	}
@@ -164,66 +143,41 @@ if (isset($_POST['updateislemi'])) {
 }
 if (isset($_POST['paydue'])) {
 
-	$hostid=$_POST['hostid'];
-	$due=$_POST['due'];
-	$paid="PAID";
-	$notpaid="NOTPAID";
+	$paid='PAID';
 	$datetim=date('Y-m-d');
 
-	if (!empty($due) || $due!=NULL) {
+	$kaydet=$db->prepare("UPDATE aidat set             
+		isPaid=:isPaid,
+		datetim=:datetim
+		where id={$_POST['id']} 
 
-		$kayit=$db->prepare("INSERT into aidat set             
-			period=:period,             
-			due=:due,
-			isPaid=:isPaid,
-			hostid=:hostid,
-			datetim=:datetim
-			");
+		");
 
-		$ins=$kayit->execute(array(
-			'period'=>$_POST['period'],
-			'due'=>$_POST['due'],
-			'datetim'=>$datetim,
-			'hostid'=>$hostid,
-			'isPaid'=>$paid,
 
-		));
-	}
-	else{
-		$kayit=$db->prepare("INSERT into aidat set             
-			period=:period,             
-			due=:due,
-			isPaid=:isPaid,
-			hostid=:hostid,
-			datetim=:datetim
-			
-			");
+	$insert=$kaydet->execute(array(
+        'isPaid'=>$paid,
+        'datetim'=>$datetim,
+		
+		
+		
+	));
+	if ($insert) {
 
-		$ins=$kayit->execute(array(
-			'period'=>$_POST['period'],
-			'due'=>$_POST['due'],
-			'hostid'=>$hostid,
-			'isPaid'=>$notpaid,
-			'datetim'=>$datetim,
-
-		));
-
-	}
-
-	if ($ins) {
-
-		header("Location:editdue.php?durum=ok&id=$id");
+		header("Location:editdue.php?durum=ok");
 		exit();
-		# code...
+
 	}
 	else{ 
-		header("Location:editdue.php?durum=no&id=$id");
+		header("Location:editdue.php?durum=no");
 		exit();
 
 
-		
+
 	}
 
+
+
+	
 }
 
 if (isset($_POST['updatebudget'])) {
@@ -308,7 +262,6 @@ if ($_GET['start']=="ok") {
 		'amount'=>$amount,
 		
 
-
 	));
 }
 	if ($insert) {
@@ -322,19 +275,7 @@ if ($_GET['start']=="ok") {
 		exit();
 
 
-
-	}
-
-
-	
-	
+	}	
 }
-
-
-
-
-
-
-
 
 ?>
