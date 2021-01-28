@@ -6,7 +6,10 @@ include 'baglan.php';
 <html>
 <head>
 	<title>HostDetail/ERENHOUSES</title>
-	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 	<style >
 		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap');
 		body{
@@ -129,7 +132,7 @@ include 'baglan.php';
 					</li>
 					<li>
 						<a href="currentdue.php">
-							<span class="title">EDİT DUE&DETAILS</span>
+							<span class="title">EDIT DUE&DETAILS</span>
 						</a>
 					</li>
 					<li>
@@ -150,9 +153,25 @@ include 'baglan.php';
 				</ul>
 			</div>
 		</div>
-	<br><br><br><br><br>
+	<br><br><br><br>
+	<form class="form-inline" action="insert.php?start=ok" method="POST"  style="float: right; margin-right: 455px; ">
+
+  <label class="sr-only" for="inlineFormInputName2">Name</label>
+  <input type="text" style="width: 355px;" name="amount" required="" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="ENTER DUE OF NEW MONTH">
+
+
+						
+						
+
+  
+  <button type="submit" class="btn btn-primary mb-2">Send Due</button> </form> <br>
+  <br>
+ 
+</form>
 	<div class="cont">
+
 		<table style="  width: 100%;" border="1px" class="table table-secondary table-striped table-bordered table-hover">
+
 			<tr>
 				
 				<th>BLOCK NAME</th>
@@ -163,7 +182,7 @@ include 'baglan.php';
 				<th>TELEPHONE2</th>
 				<th>MOVE IN</th>
 				<th>OPERATION</th>
-				<th>ADD NEW MONTH DUE</th>
+			
 
 				
 
@@ -171,7 +190,7 @@ include 'baglan.php';
 
 
 			<?php
-			$bilgilerisor=$db->prepare("SELECT * FROM bilgiler ORDER BY move_in ");
+			$bilgilerisor=$db->prepare("SELECT * FROM bilgiler ORDER BY  move_in DESC ");
 			$bilgilerisor->execute();
 			$sayı=0;
 			while ($bilgileriçek=$bilgilerisor->FETCH(PDO::FETCH_ASSOC)) {  ?>
@@ -191,18 +210,14 @@ include 'baglan.php';
 					<td align="center"> 
 						<a href="edit.php?id=<?php echo $bilgileriçek['id']?>"> <button class="btn btn-dark" >EDIT HOST</button> </td></a>
 					
-					<td align="center"> 
-						<form action="insert.php?hostid=<?php echo $bilgileriçek['id']?>&start=ok" method="POST"> 
-							<input type="text" name="amount" required="">
-
-						 <button class="btn btn-danger" >START NEW MONTH</button> </td></form>
+					
 					
 				</tr>
 			<?php } ?>
 			<?php
 
 			if($_GET['durum']=="var"){ ?>
-				<div class="alert alert-danger ">
+				<div class="alert alert-danger " style="text-align: center;">
 					<a href="admin_11.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					<strong>Warning!</strong> This period already created .
 				</div>
@@ -210,12 +225,15 @@ include 'baglan.php';
 			<?php 
 
            if($_GET['sonuc']=="ok"){ ?>
-				<div class="alert alert-success ">
+				<div class="alert alert-success " style="text-align: center;">
 					<a href="admin_11.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					<strong>Success!</strong> This period created .
 				</div>
 			<?php  } 
 			 ?>
+
+			
+			
 		</table>
 
 	</div>
