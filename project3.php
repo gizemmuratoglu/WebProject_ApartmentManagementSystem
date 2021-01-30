@@ -26,86 +26,90 @@ session_start();
 		}
 		/*.duyurular{
 			background-color: #db9430 !important;
-		}*/
+			}*/
 
-	</style>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+		</style>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-</head>
+	</head>
 
-<body>
-	<nav class="navbar navbar-dark bg-dark navbar-expand-lg text-white"> 
-		<div class="container py-2"> <a  class="navbar-brand"> Welcome <?php echo $_SESSION['name'];  ?> </a>
+	<body>
+		<nav class="navbar navbar-dark bg-dark navbar-expand-lg text-white"> 
+			<div class="container py-2"> <a  class="navbar-brand"> Welcome <?php echo $_SESSION['name'];  ?> </a>
 
-			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-houses" aria-controls="navbar-houses" >
-				<span class="navbar-toggler-icon"> </span>
-			</button>
+				<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-houses" aria-controls="navbar-houses" >
+					<span class="navbar-toggler-icon"> </span>
+				</button>
 
-			<div class="collapse navbar-collapse" id="navbar-houses">
-				<ul class="navbar-nav ">
-					<li class="nav-item px-4">
-						<a href="" class="nav-link text-white">HOMEPAGE</a>
-					</li>
-					<li class="nav-item px-4">
-						<a href="details.php?id=<?php echo $_GET['id'];?>" class="nav-link text-white">DUE DETAILS</a>
-					</li>
-					<li class="nav-item px-4">
-						<a href="userbudget.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">INCOME-EXPENSE TABLE</a>
-					</li>
-					<li class="nav-item px-4">
-						<a href="reportPage.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">REPORT PROBLEM&REQUEST</a>
-					</li>
-					<li class="nav-item px-4 ">
-						<a href="out.php" class="nav-link text-white ">LOG OUT</a>
-					</li>
+				<div class="collapse navbar-collapse" id="navbar-houses">
+					<ul class="navbar-nav ">
+						<li class="nav-item px-4">
+							<a href="" class="nav-link text-white">HOMEPAGE</a>
+						</li>
+						<li class="nav-item px-4">
+							<a href="details.php?id=<?php echo $_GET['id'];?>" class="nav-link text-white">DUE DETAILS</a>
+						</li>
+						<li class="nav-item px-4">
+							<a href="userbudget.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">INCOME-EXPENSE TABLE</a>
+						</li>
+						<li class="nav-item px-4">
+							<a href="reportPage.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">REPORT PROBLEM&REQUEST</a>
+						</li>
+						<li class="nav-item px-4 ">
+							<a href="out.php" class="nav-link text-white ">LOG OUT</a>
+						</li>
 
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<section class="duyurular py-5">
-		<div class="duyurular text-center ">
-		<h1 style="color: white; text-decoration: underline;" >ANNOUNCEMENTS</h1>
-		</div>
-	</section>
-	
-	<section class="bg py-3">
-	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-		<div class="carousel-inner text-center" style="padding-top: 45px;">
-			<div class="carousel-item active ">
-				<h1>DECEMBER DUES ARE PAID $100 BECAUSE OF DISINFECT </h1>
-			</div>
-			
-			<div class="carousel-item" >
-				<h1 style=" text-align: center;"> PLEASE BE CAREFUL! SOME OF THE FAMILY'S CHILDREN CAN FEAR YOUR PETS. </h1>
-			</div>
-		</div>
-		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Previous</span>
-		</a>
-		<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Next</span>
-		</a>
-	</div>
-</section>
-	<!-- <div id="baslık"  > <b>WELCOME   <?php echo $_SESSION['name'];  ?> <b></div>
-		<div class="divs">
-			<div class="bolum"> 
-			</div>
-			<div class="bolum">
-				<br><br>
-				<form action="http://localhost/page3.html" method="post">
-					<input type="submit" name="button" value="PAY DUE" > <br><br> </form>
-					<a href="details.php?id=<?php echo $_GET['id'];?>"> <button>DUE DETAILS</button></a> <br><br>
-					<form action="http://localhost/reportPage.php?id=<?php echo $_GET['id']; ?>" method="post">
-						<input type="submit" name="button" value="REPORT PROBLEM OR REQUEST" > <br><br>
-					</form> <br>
-					<a href="cıkıs.php"><button class="btn btn-danger">LOG OUT</button></a>
+					</ul>
 				</div>
-           
-			</div> -->
+			</div>
+		</nav>
+		<section class="duyurular py-5">
+			<div class="duyurular text-center ">
+				<h1 style="color: white; text-decoration: underline;" >ANNOUNCEMENTS</h1>
+			</div>
+		</section>
+
+		<section class="bg py-3">
+			<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+
+				<div class="carousel-inner text-center" style="padding-top: 45px;">
+
+                    <div class="carousel-item active ">
+							<h1 style="text-decoration-line: underline;">Coronavirus is spreading fast. 
+							Do not leave your home unless necessary.</h1>
+						</div>
+					<?php
+
+
+					$bilgilerisor=$db->prepare("SELECT * FROM  duyurular   ORDER BY id DESC LIMIT 3");
+					$bilgilerisor->execute();
+					$sayi=0;
+                    $active='active';
+
+					while ($bilgileriçek=$bilgilerisor->FETCH(PDO::FETCH_ASSOC)) {  ?>
+
+                      
+						<div class="carousel-item " >
+							<h1> <?php echo $bilgileriçek['duyuru'] ; ?> </h1>
+						</div>
+						<?php 
+
+
+
+							$sayı++;} ?>
+
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</a>
+				</div>
+			</section>
+
 			
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 		</body>
