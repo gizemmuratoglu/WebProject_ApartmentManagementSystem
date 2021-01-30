@@ -22,9 +22,9 @@ include 'baglan.php';
 			
 			/*background-color: grey;*/
 			padding-top: 18px;
-			width: 70%;
+			width: 79%;
 			
-			margin-left: 285px;
+			margin-left: 282px;
 
 			
 		}
@@ -106,11 +106,11 @@ include 'baglan.php';
 			}
 
 		</style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 		
 	</head>
 	<body>
-		<div class="wlc" style="text-align: center; font-size: 25px; color: white; "> <b>EDIT DUE&DETAILS</b> </div> 
+		<div class="wlc" style="text-align: center; font-size: 25px; color: white; padding-left: 195px; "> <b>EDIT DUE&DETAILS</b> </div> 
 		<div class="con">
 			<div class="navigation">
 				<ul>
@@ -133,7 +133,7 @@ include 'baglan.php';
 					</li>
 					<li>
 						<a href="currentdue.php">
-							<span class="title">EDİT DUE&DETAILS</span>
+							<span class="title">EDIT DUE&DETAILS</span>
 						</a>
 					</li>
 					<li>
@@ -154,24 +154,53 @@ include 'baglan.php';
 				</ul>
 			</div>
 		</div>
-		<div class="kolon" style="margin-left: 650px;">
-			<a href="movedue.php"> <button  type="submit" class="btn btn-danger" ><b>CHECK MOVE OUT DUES TABLE</b> </button> </a> </div>
-			<!-- <div class="kolon">
-				<a href="movedue.php"> <button  type="submit" class="btn btn-danger" ><b>CHECK MOVE OUT DUES TABLE</b> </button> </a> </div> -->
+		
+		<br>
+			<br>
+			<div style="width: 66%; height: 100px;  margin-left: 380px;">
+				<br><br>
+
+				<form class="form-inline" action="insert.php?start=ok" method="POST"  style="float: right; margin-right: 265px; ">
+
+			<label class="sr-only" for="inlineFormInputName2">Name</label>
+			<input type="text" style="width: 355px;" name="amount" required="" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="ENTER DUE OF NEW MONTH">
+
+			<button type="submit" class="btn btn-primary mb-2">Send Due</button> </form> 
+
+			</div>
+			
 
 				<div class="cont"  >
+					<?php
+
+			if($_GET['durum']=="var"){ ?>
+				<div class="alert alert-danger " style="text-align: center;">
+					<a href="currentdue.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>Warning!</strong> This period already created .
+				</div>
+			<?php  } ?>
+			<?php 
+
+           if($_GET['sonuc']=="ok"){ ?>
+				<div class="alert alert-success " style="text-align: center;">
+					<a href="currentdue.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>Success!</strong> This period created .
+				</div>
+			<?php  } 
+			 ?>
+
 
 
 					<div class="accordion">
 
 						<div class="card">
 							<div class="card-header">
-								<a id="card-link" data-toggle="collapse" href="#residents">
+								<a id="card-link" data-toggle="collapse" href="#res">
 									#UNPAID
 								</a>
 							</div>
 
-							<div class="collapse show" id="residents">
+							<div class="collapse show" id="res">
 								<div class="card-body">
 
 									<table class="table table-hover table-striped">
@@ -196,12 +225,12 @@ include 'baglan.php';
 
 											<tr>
 
-							<td align="center"><?php echo $bilgileriçek['blockname'] ; ?></td>
-						<td align="center"><?php echo $bilgileriçek['period'] ; ?></td>
-						<td align="center"><?php echo $bilgileriçek['amount'] ; ?></td>
-			<td align="center"><?php echo $bilgileriçek['name'] ; ?></td>
-			<td align="center"><?php echo $bilgileriçek['surname'] ; ?></td>
-		 <td align="center"> <a href="editdue.php?hostid=<?php echo $bilgileriçek['hostid']?>"> <button class="btn btn-dark" >PAY DUE</button></td></a> 
+												<td align="center"><?php echo $bilgileriçek['blockname'] ; ?></td>
+												<td align="center"><?php echo $bilgileriçek['period'] ; ?></td>
+												<td align="center"><?php echo $bilgileriçek['amount'] ; ?></td>
+												<td align="center"><?php echo $bilgileriçek['name'] ; ?></td>
+												<td align="center"><?php echo $bilgileriçek['surname'] ; ?></td>
+												<td align="center"> <a href="editdue.php?hostid=<?php echo $bilgileriçek['hostid']?>"> <button class="btn btn-dark" >PAY DUE</button></td></a> 
 
 											</tr>
 											<?php 
@@ -211,35 +240,35 @@ include 'baglan.php';
 										} ?>
 
 									</table>
-							
+									
 
 
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="card">
-						<div class="card-header">
-							<a id="card-link" data-toggle="collapse" href="#residents">
-								#PAID
-							</a>
-						</div>
+						<div class="card">
+							<div class="card-header">
+								<a id="card-link" data-toggle="collapse" href="#residents">
+									#PAID
+								</a>
+							</div>
 
-						<div class="collapse show" id="residents">
-							<div class="card-body">
+							<div class="collapse show" id="residents">
+								<div class="card-body">
 
-								<table class="table table-hover table-striped">
-									<thead class="thead-light">
-										<tr>
-											<th style="text-align: center;">BLOCK NAME</th>
-								<th style="text-align: center;">PERIOD </th>
-								<th style="text-align: center;">PAYMENT </th>
-								<th style="text-align: center;">PAYMENT DATE</th> 
-								<th style="text-align: center;">NAME</th>
-								<th style="text-align: center;">SURNAME</th>
-										</tr>
-									</thead>
-									<?php
+									<table class="table table-hover table-striped">
+										<thead class="thead-light">
+											<tr>
+												<th style="text-align: center;">BLOCK NAME</th>
+												<th style="text-align: center;">PERIOD </th>
+												<th style="text-align: center;">PAYMENT </th>
+												<th style="text-align: center;">PAYMENT DATE</th> 
+												<th style="text-align: center;">NAME</th>
+												<th style="text-align: center;">SURNAME</th>
+											</tr>
+										</thead>
+										<?php
 
 
 										$bilgilerisor=$db->prepare("SELECT * FROM  bilgiler b, aidat a  where b.id=a.hostid AND a.isPaid='PAID' ORDER BY period");
@@ -256,7 +285,7 @@ include 'baglan.php';
 												<td align="center"><?php echo $bilgileriçek['datetim'] ; ?></td>
 												<td align="center"><?php echo $bilgileriçek['name'] ; ?></td>
 												<td align="center"><?php echo $bilgileriçek['surname'] ; ?></td>
-											
+												
 
 											</tr>
 											<?php 
@@ -264,17 +293,21 @@ include 'baglan.php';
 
 
 										} ?>
-								</table>
+
+									</table>
 
 
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				</div> <br>
+				<div class="kolon" style="margin-left: 730px;">
+					<a href="movedue.php"> <button  type="submit" class="btn btn-danger" ><b>CHECK MOVE OUT DUES TABLE</b> </button> </a> </div>
+					<br><br>
 
 
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
-		</body>
-		</html>
+				</body>
+				</html>
