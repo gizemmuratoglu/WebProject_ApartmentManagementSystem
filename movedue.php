@@ -31,12 +31,12 @@ include 'baglan.php';
 
 			*/
 			
-			padding-left: 140px !important;
+			padding-left: 230px !important;
 			text-align: center !important;
 			margin-left: 150px !important;
 
 			padding-right: 0px !important;
-			width: 84% !important;
+			width: 81% !important;
 			/*background-color: white !important;*/
 		}
 		.wlc{
@@ -116,7 +116,7 @@ include 'baglan.php';
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-	<div class="wlc" style="text-align: center; font-size: 25px; color: white; "> <b>DUE STATUS OF MOVE OUT</b>   </div>
+	<div class="wlc" style="text-align: center; font-size: 25px; color: white; padding-left: 195px; "> <b>DUE STATUS OF MOVE OUT</b>   </div>
 	<div class="con">
 		<div class="navigation">
 			<ul>
@@ -169,12 +169,12 @@ include 'baglan.php';
 
 			<div class="card">
 				<div class="card-header">
-					<a id="card-link" data-toggle="collapse" href="#residents">
+					<a id="card-link" data-toggle="collapse" href="#res">
 						#UNPAID
 					</a>
 				</div>
 
-				<div class="collapse show" id="residents">
+				<div class="collapse show" id="res">
 					<div class="card-body">
 
 						<table class="table table-hover table-striped">
@@ -282,4 +282,3 @@ include 'baglan.php';
 
 </body>
 </html>
-
