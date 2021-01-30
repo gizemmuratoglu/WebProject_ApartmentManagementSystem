@@ -109,7 +109,7 @@ include 'baglan.php';
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-	<div class="wlc" style="text-align: center; font-size: 25px; color: white; "> <b>EDIT DUE&DETAILS</b> </div> 
+	<div class="wlc" style="text-align: center; font-size: 25px; color: white; padding-left: 195px; "> <b>HOST DETAILS&EDIT</b> </div> 
 		<div class="con">
 			<div class="navigation">
 				<ul>
@@ -154,20 +154,9 @@ include 'baglan.php';
 			</div>
 		</div>
 	<br><br><br><br>
-	<form class="form-inline" action="insert.php?start=ok" method="POST"  style="float: right; margin-right: 455px; ">
-
-  <label class="sr-only" for="inlineFormInputName2">Name</label>
-  <input type="text" style="width: 355px;" name="amount" required="" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="ENTER DUE OF NEW MONTH">
-
-
-						
-						
-
-  
-  <button type="submit" class="btn btn-primary mb-2">Send Due</button> </form> <br>
-  <br>
+	
  
-</form>
+
 	<div class="cont">
 
 		<table style="  width: 100%;" border="1px" class="table table-secondary table-striped table-bordered table-hover">
@@ -214,24 +203,7 @@ include 'baglan.php';
 					
 				</tr>
 			<?php } ?>
-			<?php
-
-			if($_GET['durum']=="var"){ ?>
-				<div class="alert alert-danger " style="text-align: center;">
-					<a href="admin_11.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Warning!</strong> This period already created .
-				</div>
-			<?php  } ?>
-			<?php 
-
-           if($_GET['sonuc']=="ok"){ ?>
-				<div class="alert alert-success " style="text-align: center;">
-					<a href="admin_11.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Success!</strong> This period created .
-				</div>
-			<?php  } 
-			 ?>
-
+			
 			
 			
 		</table>
