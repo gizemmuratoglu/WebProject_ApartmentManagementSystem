@@ -137,13 +137,18 @@ include 'baglan.php';
 						</a>
 					</li>
 					<li>
+						<a href="deneme.php">
+							<span class="title">REPORT</span>
+						</a>
+					</li>
+					<li>
 						<a href="report.php">
 							<span class="title">CHECK PROBLEM&REQUEST</span>
 						</a>
 					</li>
 					<li>
-						<a href="see.php">
-							<span class="title">EDIT INCOME-EXPENSE TABLE</span>
+						<a href="budget.php">
+							<span class="title">EXPENSES</span>
 						</a>
 					</li>
 					<li>
@@ -165,7 +170,8 @@ include 'baglan.php';
 			<label class="sr-only" for="inlineFormInputName2">Name</label>
 			<input type="text" style="width: 355px;" name="amount" required="" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="ENTER DUE OF NEW MONTH">
 
-			<button type="submit" class="btn btn-primary mb-2">Send Due</button> </form> 
+			<button type="submit" class="btn btn-primary mb-2">Send Due</button>
+			 </form> 
 
 			</div>
 			
