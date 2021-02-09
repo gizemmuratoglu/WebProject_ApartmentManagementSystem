@@ -125,7 +125,7 @@
 
 	<body>
 
-		<div class="wlc" style="text-align: center; font-size: 25px; color: white; "> <b>ADD NEW HOST</b>   </div>
+		<div class="wlc" style="text-align: center; font-size: 25px; color: white; padding-left: 195px; "> <b>ADD NEW HOST</b>   </div>
 		<div class="con">
 			<div class="navigation">
 				<ul>
@@ -152,13 +152,18 @@
 						</a>
 					</li>
 					<li>
+						<a href="deneme.php">
+							<span class="title">REPORT</span>
+						</a>
+					</li>
+					<li>
 						<a href="report.php">
 							<span class="title">CHECK PROBLEM&REQUEST</span>
 						</a>
 					</li>
 					<li>
-						<a href="see.php">
-							<span class="title">EDIT INCOME-EXPENSE TABLE</span>
+						<a href="budget.php">
+							<span class="title">EXPENSES</span>
 						</a>
 					</li>
 					<li>
