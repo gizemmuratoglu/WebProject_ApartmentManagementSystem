@@ -86,8 +86,7 @@ if (isset($_POST['updateislemi'])) {
 	
 	if (!empty($move_out)|| $move_out!=NULL) {
 		$kayit=$db->prepare("INSERT into tasinanlar set             
-			hostid=:hostid,
-
+			id=:id,
 			name=:name,             
 			surname=:surname,
 			housemate=:housemate,
@@ -98,13 +97,13 @@ if (isset($_POST['updateislemi'])) {
 
 			");
 		$ins=$kayit->execute(array(
+			'id'=>$_POST['id'],
 			'name'=>$_POST['name'],
 			'surname'=>$_POST['surname'],
 			'housemate'=>$_POST['housemate'],
 			'telephone_num1'=>$_POST['telephone_num1'],
 			'telephone_num2'=>$_POST['telephone_num2'],
 			'blockname'=>$_POST['blockname'],
-			'hostid'=>$hostid,
 			'move_out'=>$move_out,
 
 		));
@@ -155,8 +154,8 @@ if (isset($_POST['paydue'])) {
 
 
 	$insert=$kaydet->execute(array(
-        'isPaid'=>$paid,
-        'datetim'=>$datetim,
+		'isPaid'=>$paid,
+		'datetim'=>$datetim,
 		
 		
 		
@@ -181,23 +180,19 @@ if (isset($_POST['paydue'])) {
 }
 
 if (isset($_POST['updatebudget'])) {
-
+     $date=date('Y-m');
 	$kaydet=$db->prepare("INSERT into gelirgider set
 		donem=:donem,             
-		elektrik=:elektrik,
-		su=:su,
-		temizlik=:temizlik,
-		diger=:diger
-
+		exType=:exType,
+		price=:price
+		
 		");
 
 
 	$insert=$kaydet->execute(array(
-		'donem'=>$_POST['donem'],
-		'elektrik'=>$_POST['elektrik'],
-		'su'=>$_POST['su'],
-		'temizlik'=>$_POST['temizlik'],
-		'diger'=>$_POST['diger'],
+		'donem'=>$date,
+		'exType'=>$_POST['exType'],
+		'price'=>$_POST['price'],
 		
 	));
 
@@ -226,56 +221,103 @@ if (isset($_POST['updatebudget'])) {
 
 
 if ($_GET['start']=="ok") {
-	$period=date('Y-m');
-	$hostid=$_GET['hostid'];
-	$notpaid="NOTPAID";
-	$amount=$_POST['amount'];
 
+	$bilgilerisor=$db->prepare("SELECT * FROM bilgiler  ");
+	$bilgilerisor->execute();
 	
-	$nRows = $db->query("SELECT count(*) FROM aidat a  where a.hostid=$hostid AND a.period='$period'  ")->fetchColumn(); 
-	
+	while ($bilgileriçek=$bilgilerisor->FETCH(PDO::FETCH_ASSOC)) {
 
-	if ($nRows!=0) {
 
-		header("Location:admin_11.php?durum=var");
-		exit();
+		$period=date('Y-m');
+		$hostid=$bilgileriçek['id'] ; 
+		$notpaid="NOTPAID";
+		$amount=$_POST['amount'];
 
-		
-                                        	
+
+		$nRows = $db->query("SELECT count(*) FROM aidat a  where a.hostid=$hostid AND a.period='$period'  ")->fetchColumn(); 
+
+
+		if ($nRows!=0) {
+
+			header("Location:currentdue.php?durum=var");
+			exit();
+
+
+
+		}
+		else{
+
+
+			$kaydet=$db->prepare("INSERT into aidat set
+				hostid=:hostid,             
+				period=:period,
+				isPaid=:isPaid,
+				amount=:amount
+
+
+				");
+
+
+			$insert=$kaydet->execute(array(
+				'hostid'=>$hostid,
+				'period'=>$period,
+				'isPaid'=>$notpaid,
+				'amount'=>$amount,
+
+
+
+			));
+		}
 	}
-	else{
-
-    $kaydet=$db->prepare("INSERT into aidat set
-		hostid=:hostid,             
-		period=:period,
-		isPaid=:isPaid,
-		amount=:amount
-		
-
-		");
-
-
-	$insert=$kaydet->execute(array(
-		'hostid'=>$hostid,
-		'period'=>$period,
-		'isPaid'=>$notpaid,
-		'amount'=>$amount,
-		
-
-	));
-}
 	if ($insert) {
 
-		header("Location:admin_11.php?sonuc=ok");
+		header("Location:currentdue.php?sonuc=ok");
 		exit();
 
 	}
 	else{ 
-		header("Location:admin_11.php?sonuc=no");
+		header("Location:currentdue?sonuc=no");
 		exit();
 
 
-	}	
+
+	}
+
+
+	
+	
 }
+
+if ($_GET['del']=="ok") {
+    $id=$_GET['id'];
+	$silme=$db->prepare("DELETE from report where tablo_id=:tablo_id");
+	$kont=$silme->execute(array(
+		'tablo_id'=>$id
+	));
+	
+	if ($kont) {
+
+		header("Location:report.php?sonuc=ok");
+		exit();
+
+	}
+	else{ 
+		header("Location:report.php?sonuc=no");
+		exit();
+
+
+
+	}
+
+
+
+}
+
+
+
+
+
+
+
 
 ?>
