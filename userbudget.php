@@ -1,6 +1,7 @@
 <?php
 include 'baglan.php';
 session_start();
+date_default_timezone_set('UTC');
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ session_start();
 			margin-left: 50px;
 			/*background-color: #bababa !important;*/
 			background-size: 100% 758px;
-			background-image: url('img4.jpg'); 
+			 
 		}
 		.container{
 			/*float: right;
@@ -54,7 +55,7 @@ session_start();
 						<a href="details.php?id=<?php echo $_GET['id'];?>" class="nav-link text-white">DUE DETAILS</a>
 					</li>
 					<li class="nav-item px-4">
-						<a href="userbudget.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">INCOME-EXPENSE TABLE</a>
+						<a href="userbudget.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">REPORT</a>
 					</li>
 					<li class="nav-item px-4">
 						<a href="reportPage.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">REPORT PROBLEM&REQUEST</a>
@@ -70,47 +71,190 @@ session_start();
 
 
 	<br><br>
-	<div class="container">
-		<table style=" width: 82%; margin-left: 115px;" border="1px" class="table table-secondary table-striped table-bordered table-hover">
-			<tr>
+	<div class="cont">
 
-				<th >TERM</th>
-				<th style="text-align: center;">ELECTRICITY BILL</th>
-				<th style="text-align: center;">WATER BILL</th>
-				<th style="text-align: center;">CLEANING EXPENSE</th>
-				<th style="text-align: center;">OTHER EXPENSİVE(S)</th>
-				<th style="text-align: center;">ENTERED TIME</th>
-				
-				
-				
-
-			</tr>
+	<?php
+	$dat=date("Y-m");
 
 
-			<?php
-			$bilgilerisor=$db->prepare("SELECT * FROM gelirgider ORDER BY tim DESC");
-			$bilgilerisor->execute();
-			$sayı=0;
-			while ($bilgileriçek=$bilgilerisor->FETCH(PDO::FETCH_ASSOC)) { $sayı++; ?>
+	if (isset($_GET['startingDate'])) {
+		$startingDate = $_GET['startingDate'];
+	} else {
+		$startingDate = date("Y-m", mktime(0, 0, 0, date("m") , 1));
+
+	}
+
+	
+
+
+	
+	$bilgilerisor=$db->prepare("SELECT sum(amount) AS totaidat FROM aidat   where  isPaid='PAID' AND period='$dat' ");
+	$bilgilerisor->execute();
+	$row = $bilgilerisor->fetch(PDO::FETCH_ASSOC);
+	//echo $row['totaidat'];
+	if($row['totaidat'] > 0){
+		$income = $row['totaidat'];
+	}else{
+		$income=0;
+	}
+
+
+	$bilgilerisor=$db->prepare("SELECT sum(amount) AS tot FROM aidat   where  isPaid!='PAID' AND period='$dat' ");
+	$bilgilerisor->execute();
+	$row = $bilgilerisor->fetch(PDO::FETCH_ASSOC);
+	if($row['tot'] > 0){
+		$unpaiddues = $row['tot'];
+	}else{
+		$unpaiddues=0;
+	}
+
+
+
+	$bilgilerisor=$db->prepare("SELECT sum(price) AS totgider FROM gelirgider WHERE donem='$dat'");
+	$bilgilerisor->execute();
+	$row = $bilgilerisor->fetch(PDO::FETCH_ASSOC);
+	if($row['totgider'] > 0){
+		$expense = $row['totgider'];
+	}else{
+		$expense=0;
+	}
+
+	
+
+
+
+	echo "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+
+	<script type='text/javascript'>
+    // Load google charts
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+		['Task', 'Hours per Day'],
+		['Due Incomes'," . $income . "],
+		['Expense'," . $expense . "],
+		['Unpaid Dues'," . $unpaiddues . "]
+		]);
+
+      // Optional; add a title and set the width and height of the chart
+		var options = {'title':'Income Expense', 'width':600, 'height':350};
+
+      // Display the chart inside the <div> element with id='piechart'
+		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		chart.draw(data, options);
+	}
+	</script>";
+
+	?>
+
+	<div class="container col-md-10">
+		<div class="row justify-content-center">
+
+			<div id='piechart'></div>
+
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="accordion mb-5">
+
+					<div class="card">
+						<div class="card-header">
+							<a id="card-link" data-toggle="collapse" href="#expenseReport">
+								Selected Expense Report
+							</a>
+						</div>
+
+						<div class="collapse show" id="expenseReport">
+							<div class="card-body">
+
+								<table class="table table-hover table-striped">
+									<thead class="thead-light">
+										<tr>
+
+											
+											<th>Expense Detail</th>
+											<th>Expense Date</th>
+											<th>Expense Price</th>
+
+										</thead>
+
+										<?php
+										$dat=date("Y-m");
+										$bilgilerisor=$db->prepare("SELECT * FROM gelirgider WHERE donem='$dat' ");
+										$bilgilerisor->execute();
+										$sayı=0;
+										while ($bilgileriçek=$bilgilerisor->FETCH(PDO::FETCH_ASSOC)) { $sayı++; ?>
 
 
 
 
-				<tr>
-					
-					<td style="font-size: 17px;"><?php echo $bilgileriçek['donem'] ; ?></td>
-					<td style="text-align: center; font-size: 17px;"><?php echo $bilgileriçek['elektrik'] ; ?></td>
-					<td style="text-align: center; font-size: 17px;"><?php echo $bilgileriçek['su'] ; ?></td>
-					<td style="text-align: center; font-size: 17px;"><?php echo $bilgileriçek['temizlik'] ; ?></td>
-					<td style="text-align: center; font-size: 17px;"><?php echo $bilgileriçek['diger'] ; ?></td>
-					<td style="text-align: center; font-size: 17px;"><?php echo $bilgileriçek['tim'] ; ?></td>
-					
-					
-				</tr>
-			<?php } ?>
-		</table>
+											<tr>
 
-	</div>
+												<td><?php echo $bilgileriçek['donem'] ; ?></td>
+												<td ><?php echo $bilgileriçek['exType'] ; ?></td>
+												<td ><?php echo $bilgileriçek['price'] ; ?></td>
+
+
+											</tr>
+										<?php } ?>
+									</table>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header">
+								<a id="card-link" data-toggle="collapse" href="#lifetime">
+									All Expense Report
+								</a>
+							</div>
+
+							<div class="collapse" id="lifetime">
+								<div class="card-body">
+
+									<table class="table table-hover table-striped">
+										<thead class="thead-light">
+											<tr>
+
+												
+												<th>Expense Detail</th>
+												<th>Expense Date</th>
+												<th>Expense Price</th>
+
+											</thead>
+
+											<?php
+
+											$dat=date("Y-m");
+											$bilgilerisor=$db->prepare("SELECT * FROM gelirgider ORDER BY donem DESC ");
+											$bilgilerisor->execute();
+											$sayı=0;
+											while ($bilgileriçek=$bilgilerisor->FETCH(PDO::FETCH_ASSOC)) { $sayı++; ?>
+
+
+
+
+												<tr>
+
+													<td><?php echo $bilgileriçek['donem'] ; ?></td>
+													<td ><?php echo $bilgileriçek['exType'] ; ?></td>
+													<td ><?php echo $bilgileriçek['price'] ; ?></td>
+
+
+												</tr>
+
+											<?php } ?>
+
+										</table>
+
+									</div>
+								</div>
 
 </body>
 </html>
