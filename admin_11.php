@@ -136,13 +136,18 @@ include 'baglan.php';
 						</a>
 					</li>
 					<li>
+						<a href="deneme.php">
+							<span class="title">REPORT</span>
+						</a>
+					</li>
+					<li>
 						<a href="report.php">
 							<span class="title">CHECK PROBLEM&REQUEST</span>
 						</a>
 					</li>
 					<li>
-						<a href="see.php">
-							<span class="title">EDIT INCOME-EXPENSE TABLE</span>
+						<a href="budget.php">
+							<span class="title">EXPENSES</span>
 						</a>
 					</li>
 					<li>
