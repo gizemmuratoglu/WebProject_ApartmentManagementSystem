@@ -7,6 +7,7 @@
 	<meta name="author" content="Gizem Nur Muratoğlu">
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	
 	<style type="text/css">
 
 
@@ -41,7 +42,7 @@
 		.navigation{
 
 			position: fixed;
-			width: 300px;
+			width: 250px;
 			height: 100%;
 			background-color: #292626;
 			transition: 0.5s;
@@ -75,7 +76,7 @@
 				font-size: 24px;
 			}
 			.navigation ul li a .title{
-				font-size: 19px;
+				font-size: 15.5px;
 				color: white;
 				text-decoration-line: underline;
 				position: relative;
@@ -87,7 +88,7 @@
 			}
 			.navigation ul li a .title:hover{
 				color: brown;
-				font-size: 19px;
+				font-size: 16px;
 
 			}
 			.navigation ul li a .baslık{
@@ -134,13 +135,18 @@
 						</a>
 					</li>
 					<li>
+						<a href="deneme.php">
+							<span class="title">REPORT</span>
+						</a>
+					</li>
+					<li>
 						<a href="report.php">
 							<span class="title">CHECK PROBLEM&REQUEST</span>
 						</a>
 					</li>
 					<li>
-						<a href="see.php">
-							<span class="title">EDIT INCOME-EXPENSE TABLE</span>
+						<a href="budget.php">
+							<span class="title">EXPENSES</span>
 						</a>
 					</li>
 					<li>
