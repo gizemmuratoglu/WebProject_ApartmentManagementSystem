@@ -1,3 +1,7 @@
+<?php 
+include "dashboard.php";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -126,54 +130,7 @@
 	<body>
 
 		<div class="wlc" style="text-align: center; font-size: 25px; color: white; padding-left: 195px; "> <b>ADD NEW HOST</b>   </div>
-		<div class="con">
-			<div class="navigation">
-				<ul>
-					<li>
-						<a >
-
-							<span class="baslık" style="text-decoration-line: none;"><b>DASHBOARD</b> </span>
-						</a>
-					</li>
-					<<li>
-						<a href="admin_11.php" >
-
-							<span class="title" > HOST DETAILS&EDIT</span>
-						</a>
-					</li>
-					<li>
-						<a href="newPage.php">
-							<span class="title">ADD NEW HOST</span>
-						</a>
-					</li>
-					<li>
-						<a href="currentdue.php">
-							<span class="title">EDIT DUE&DETAILS</span>
-						</a>
-					</li>
-					<li>
-						<a href="deneme.php">
-							<span class="title">REPORT</span>
-						</a>
-					</li>
-					<li>
-						<a href="report.php">
-							<span class="title">CHECK PROBLEM&REQUEST</span>
-						</a>
-					</li>
-					<li>
-						<a href="budget.php">
-							<span class="title">EXPENSES</span>
-						</a>
-					</li>
-					<li>
-						<a href="admin.php">
-							<span class="title">LOG OUT</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+		
 		<br><br><br><br>
 
 
