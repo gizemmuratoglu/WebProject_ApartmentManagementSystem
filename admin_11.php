@@ -1,5 +1,8 @@
 <?php
 include 'baglan.php';
+include "dashboard.php";
+
+
 
 ?>
 <!DOCTYPE html>
@@ -151,7 +154,7 @@ include 'baglan.php';
 						</a>
 					</li>
 					<li>
-						<a href="admin.php">
+						<a href="adminout.php">
 							<span class="title">LOG OUT</span>
 						</a>
 					</li>
