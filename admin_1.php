@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,7 +113,7 @@
 	</head>
 
 	<body>
-		<div class="wlc" style="text-align: center; font-size: 45px; color: white; "> <b>WELCOME MY ADMIN</b>  </div>
+		<div class="wlc" style="text-align: center; font-size: 45px; color: white; "> <b>WELCOME <?php echo $_SESSION['name']; ?></b>  </div>
 		<div class="con">
 			<div class="navigation">
 				<ul>
@@ -150,7 +155,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="admin.php">
+						<a href="adminout.php">
 							<span class="title">LOG OUT</span>
 						</a>
 					</li>
