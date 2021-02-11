@@ -1,7 +1,8 @@
 <?php
-include 'baglan.php';
+
 session_start();
 date_default_timezone_set('UTC');
+
 
 ?>
 <!DOCTYPE html>
@@ -39,42 +40,12 @@ date_default_timezone_set('UTC');
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar navbar-dark bg-dark navbar-expand-lg text-white"> 
-		<div class="container py-2"> <a  class="navbar-brand"> Welcome <?php echo $_SESSION['name'];  ?> </a>
-
-			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-houses" aria-controls="navbar-houses" >
-				<span class="navbar-toggler-icon"> </span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbar-houses">
-				<ul class="navbar-nav ">
-					<li class="nav-item px-4">
-						<a href="project3.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white">HOMEPAGE</a>
-					</li>
-					<li class="nav-item px-4">
-						<a href="details.php?id=<?php echo $_GET['id'];?>" class="nav-link text-white">DUE DETAILS</a>
-					</li>
-					<li class="nav-item px-4">
-						<a href="userbudget.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">REPORT</a>
-					</li>
-					<li class="nav-item px-4">
-						<a href="reportPage.php?id=<?php echo $_GET['id']; ?>" class="nav-link text-white ">REPORT PROBLEM&REQUEST</a>
-					</li>
-					<li class="nav-item px-4 ">
-							<a href="out.php" class="nav-link text-white ">LOG OUT</a>
-						</li>
-					
-				</ul>
-			</div>
-		</div>
-	</nav>
-
+	<?php  include "navbar.php";?>
 
 	<br><br>
 	<div class="cont">
 
 	<?php
-	$dat=date("Y-m");
 
 
 	if (isset($_GET['startingDate'])) {
@@ -87,8 +58,8 @@ date_default_timezone_set('UTC');
 	
 
 
-	
-	$bilgilerisor=$db->prepare("SELECT sum(amount) AS totaidat FROM aidat   where  isPaid='PAID' AND period='$dat' ");
+	$dat=date("Y-m");
+	$bilgilerisor=$db->prepare("SELECT sum(amount) AS totaidat FROM aidat   where  isPaid='PAID' AND period='$startingDate' ");
 	$bilgilerisor->execute();
 	$row = $bilgilerisor->fetch(PDO::FETCH_ASSOC);
 	//echo $row['totaidat'];
@@ -99,7 +70,7 @@ date_default_timezone_set('UTC');
 	}
 
 
-	$bilgilerisor=$db->prepare("SELECT sum(amount) AS tot FROM aidat   where  isPaid!='PAID' AND period='$dat' ");
+	$bilgilerisor=$db->prepare("SELECT sum(amount) AS tot FROM aidat   where  isPaid!='PAID' AND period='$startingDate' ");
 	$bilgilerisor->execute();
 	$row = $bilgilerisor->fetch(PDO::FETCH_ASSOC);
 	if($row['tot'] > 0){
@@ -110,7 +81,7 @@ date_default_timezone_set('UTC');
 
 
 
-	$bilgilerisor=$db->prepare("SELECT sum(price) AS totgider FROM gelirgider WHERE donem='$dat'");
+	$bilgilerisor=$db->prepare("SELECT sum(price) AS totgider FROM gelirgider WHERE donem='$startingDate'");
 	$bilgilerisor->execute();
 	$row = $bilgilerisor->fetch(PDO::FETCH_ASSOC);
 	if($row['totgider'] > 0){
@@ -158,6 +129,23 @@ date_default_timezone_set('UTC');
 		</div>
 
 
+		<div class="row justify-content-center" style="width: 450px; height: 160px;">
+			<form class="form-inline py-3" method="GET" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+
+				<div class="form-group mx-5">
+					<label for="startingDate" style="margin-left: 8px;">ENTER PERIOD: </label>
+					<input class="form-control mx-2" type="text" name="startingDate" id="startingDate" value="<?php echo date("Y-m", strtotime($startingDate));   ?>">
+					
+
+						<small style="margin-left: 8px;">Format: 2021-01</small><br> 
+						<input style="margin-left: 8px;" class="btn btn-primary" type="submit" value=Show>
+
+				</div> 
+
+
+			</form>
+
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="accordion mb-5">
@@ -185,7 +173,7 @@ date_default_timezone_set('UTC');
 
 										<?php
 										$dat=date("Y-m");
-										$bilgilerisor=$db->prepare("SELECT * FROM gelirgider WHERE donem='$dat' ");
+										$bilgilerisor=$db->prepare("SELECT * FROM gelirgider WHERE donem='$startingDate' ");
 										$bilgilerisor->execute();
 										$sayı=0;
 										while ($bilgileriçek=$bilgilerisor->FETCH(PDO::FETCH_ASSOC)) { $sayı++; ?>
