@@ -1,6 +1,6 @@
 <?php
 include "baglan.php";
-
+session_start();
 
 if (isset($_POST['admingirisi'])) {
 
@@ -33,6 +33,8 @@ if (isset($_POST['admingirisi'])) {
 	
 
 			if ($say==1) {
+			$_SESSION['id']=$bilgilerim_cek['id'];
+			$_SESSION['name']=$bilgilerim_cek['name'];
 
 				header("Location:admin_1.php");
 				exit();
