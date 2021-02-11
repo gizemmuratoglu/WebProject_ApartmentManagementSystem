@@ -1,6 +1,7 @@
 <?php
 include "baglan.php";
 session_start();
+date_default_timezone_set('UTC');
 
 if (isset($_POST['log'])) {
 
@@ -9,16 +10,17 @@ if (isset($_POST['log'])) {
 		header("Location:project2.php?error=Bilgileri giriniz.");
 
 	}
+	
+
 	else{
-		$_SESSION['name']=$_POST['isim'];
-		$_SESSION['password']=$_POST['şifre'];
+		
 		$name=$_POST['isim'];
 		$password=md5($_POST['şifre']);
-		$şif=$_POST['şifre'];
+	
 		
 
 		
- 
+
 		$kullanıcısor=$db->prepare("SELECT * FROM bilgiler where name=:name AND password=:password  ");
 		$kullanıcısor -> execute(array(
 			'name'=>$name,
@@ -27,49 +29,44 @@ if (isset($_POST['log'])) {
 
 		));
 
-		$bilgilerim_cek=$kullanıcısor->fetch(PDO::FETCH_ASSOC);
-		$id=$bilgilerim_cek['id'];
-
 		$say=$kullanıcısor -> rowCount();
 
-		if (!empty($_POST['benihatırla'])){
-			setcookie('isim',$name,strtotime("+1 day"));
-			setcookie('şifre',$şif, strtotime("+1 day"));
-			
+		$bilgilerim_cek=$kullanıcısor->fetch(PDO::FETCH_ASSOC);
 
-			if ($say==1) {
 
-				header("Location:project3.php?id=$id");
-				exit();
+
+
+		if ($say==1){
+
+			if(!empty($_POST['benihatırla'])){
+				setcookie('isim',$name,strtotime("+1 day"));
+				setcookie('şifre',$şif, strtotime("+1 day"));
+
+
+
 			}
-
 			else{
-				header("Location:project2.php?error=no");
-				exit();
-				
+				setcookie('isim',$name,strtotime("-1 day"));
+				setcookie('şifre',$şif,strtotime("-1 day"));
 
 
-			} 
-
-		}else{
-			setcookie('isim',$name,strtotime("-1 day"));
-			setcookie('şifre',$şif,strtotime("-1 day"));
-			if ($say==1) {
-
-				header("Location:project3.php?id=$id");
-				exit();
 			}
+		
 
-			else{
-				header("Location:project2.php?error=no");
-				exit();
+			$_SESSION['id']=$bilgilerim_cek['id'];
+			$_SESSION['name']=$bilgilerim_cek['name'];
 
-			} 
+			echo $_SESSION['id'];
+			header("Location:project3.php");
+
 
 		}
+		else{
+			header("Location:project2.php?error=no");
+		}
+		
 
-
-	}
+  }
 }
 
 ?>
