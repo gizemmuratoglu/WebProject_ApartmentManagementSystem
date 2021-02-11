@@ -1,5 +1,7 @@
 <?php 
-session_start(); ?>
+session_start(); 
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,27 +30,10 @@ session_start(); ?>
 
 <body>
 
-
-	 <nav class="navbar navbar-dark bg-dark navbar-expand-lg text-white"> 
-      <div class="container py-2"> <a href="giris.php"  class="navbar-brand">EREN HOUSES</a>
-
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-houses" aria-controls="navbar-houses" >
-          <span class="navbar-toggler-icon"> </span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbar-houses">
-          <ul class="navbar-nav ml-auto ">
-            <li class="nav-item px-4">
-              <a href="admin.php" class="nav-link text-white ">ADMIN LOGIN</a>
-            </li>
-            <li class="nav-item px-4">
-              <a href="project2.php" class="nav-link text-white">USER LOGIN</a>
-            </li>
-
-          </ul>
-        </div>
-      </div>
-    </nav>
+<?php
+include "navbar.php";
+?>
+	
 		
 			
 			<div class="bolum">
